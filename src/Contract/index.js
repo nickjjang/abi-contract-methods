@@ -8,7 +8,6 @@ import {
   NavbarBrand,
   NavbarToggler,
 } from 'reactstrap'
-import Web3Modal from 'web3modal'
 import Config from '../config'
 import ContractFunction from './ContractFunction'
 
@@ -18,12 +17,10 @@ const Contract = () => {
   const toggle = () => setIsOpen(!isOpen)
 
   const handleWalletConnect = async () => {
-    const providerOptions = {}
-
-    const web3Modal = new Web3Modal({
-      providerOptions,
+    const accounts = await window.ethereum.request({
+      method: 'eth_requestAccounts',
     })
-    await web3Modal.connect()
+    console.log(accounts)
   }
 
   useEffect(() => {
