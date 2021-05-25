@@ -9,15 +9,16 @@ import {
   CardHeader,
   Form,
   FormGroup,
+  FormText,
   Input,
   Label,
   ListGroup,
-  ListGroupItem,
+  ListGroupItem
 } from 'reactstrap'
 import Web3 from 'web3'
 import Config from '../config'
 
-const DcbPools = (props) => {
+const ContractFunction = (props) => {
   const { name, inputs, outputs, stateMutability } = props
 
   const getFormName = (value) => (value ? value : '_value')
@@ -112,11 +113,21 @@ const DcbPools = (props) => {
           <FormGroup>
             <Button type="submit" disabled={loading}>
               {loading && <FontAwesomeIcon icon={faSpinner} spin />}{' '}
-              {stateMutability === 'view' ? 'Get Result' : 'Send'}
+              {stateMutability === 'view' ? 'Query' : 'Send'}
             </Button>
           </FormGroup>
           <FormGroup>
-            {!loading && outputValues && outputValues.agreementID && (
+            <FormText className="text-muted">
+              {outputs.map((output, index) => (
+                <span className="mr-3" key={index}>
+                  {output.name} <i>{output.type}</i>
+                </span>
+              ))}
+            </FormText>
+          </FormGroup>
+          <FormGroup>{outputValues && JSON.stringify(outputValues)}</FormGroup>
+          {name === 'dcbPools' && !loading && outputValues && outputValues.agreementID && (
+            <FormGroup>
               <ListGroup>
                 <ListGroupItem>
                   <strong>agreementID: </strong>
@@ -147,12 +158,12 @@ const DcbPools = (props) => {
                   <strong>active: </strong> {outputValues.active ? 'YES' : 'NO'}
                 </ListGroupItem>
               </ListGroup>
-            )}
-          </FormGroup>
+            </FormGroup>
+          )}
         </CardBody>
       </Card>
     </Form>
   )
 }
 
-export default DcbPools
+export default ContractFunction

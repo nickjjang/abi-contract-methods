@@ -13,7 +13,7 @@ import {
   Input,
   Label,
   ListGroup,
-  ListGroupItem,
+  ListGroupItem
 } from 'reactstrap'
 import Web3 from 'web3'
 import Config from '../config'
@@ -126,6 +126,40 @@ const ContractFunction = (props) => {
             </FormText>
           </FormGroup>
           <FormGroup>{outputValues && JSON.stringify(outputValues)}</FormGroup>
+          {name === 'dcbPools' && !loading && outputValues && outputValues.agreementID && (
+            <FormGroup>
+              <ListGroup>
+                <ListGroupItem>
+                  <strong>agreementID: </strong>
+                  {outputValues.agreementID}
+                </ListGroupItem>
+                <ListGroupItem>
+                  <strong>agreementName: </strong>{' '}
+                  {outputValues.agreementName || '--'}
+                </ListGroupItem>
+                <ListGroupItem>
+                  <strong>innovatorWallet: </strong>{' '}
+                  {outputValues.innovatorWallet || '--'}
+                </ListGroupItem>
+                <ListGroupItem>
+                  <strong>hardcap: </strong> {outputValues.hardcap || '--'}
+                </ListGroupItem>
+                <ListGroupItem>
+                  <strong>createDate: </strong>{' '}
+                  {outputValues.createDate === '0'
+                    ? '--'
+                    : outputValues.createDate}
+                </ListGroupItem>
+                <ListGroupItem>
+                  <strong>endDate: </strong>{' '}
+                  {outputValues.endDate === '0' ? '--' : outputValues.endDate}
+                </ListGroupItem>
+                <ListGroupItem>
+                  <strong>active: </strong> {outputValues.active ? 'YES' : 'NO'}
+                </ListGroupItem>
+              </ListGroup>
+            </FormGroup>
+          )}
         </CardBody>
       </Card>
     </Form>

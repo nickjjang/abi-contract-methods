@@ -46,7 +46,7 @@ const Contract = () => {
     })()
   }, [])
 
-  const funcs = Config.contract.abi.filter((value) => value.type === 'function' && value.name === 'dcbPools')
+  const funcs = Config.contract.abi.filter((value) => value.type === 'function')
 
   return (
     <Container>
