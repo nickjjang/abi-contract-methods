@@ -9,7 +9,7 @@ import {
   NavbarToggler,
 } from 'reactstrap'
 import Config from '../config'
-import DcbPools from './DcbPools'
+import ContractFunction from './ContractFunction'
 
 const Contract = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -46,7 +46,7 @@ const Contract = () => {
     })()
   }, [])
 
-  const funcs = Config.contract.abi.filter((value) => value.type === 'function' && value.name === 'dcbPools')
+  const funcs = Config.contract.abi.filter((value) => value.type === 'function')
 
   return (
     <Container>
@@ -67,7 +67,7 @@ const Contract = () => {
       </Navbar>
       {funcs.map((funcType, index) => (
         <div className="mb-4" key={index}>
-          <DcbPools {...funcType} />
+          <ContractFunction {...funcType} />
         </div>
       ))}
     </Container>

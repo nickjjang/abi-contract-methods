@@ -9,7 +9,6 @@ import {
   CardHeader,
   Form,
   FormGroup,
-  FormText,
   Input,
   Label,
   ListGroup,
@@ -18,7 +17,7 @@ import {
 import Web3 from 'web3'
 import Config from '../config'
 
-const ContractFunction = (props) => {
+const DcbPools = (props) => {
   const { name, inputs, outputs, stateMutability } = props
 
   const getFormName = (value) => (value ? value : '_value')
@@ -113,23 +112,47 @@ const ContractFunction = (props) => {
           <FormGroup>
             <Button type="submit" disabled={loading}>
               {loading && <FontAwesomeIcon icon={faSpinner} spin />}{' '}
-              {stateMutability === 'view' ? 'Query' : 'Send'}
+              {stateMutability === 'view' ? 'Get Result' : 'Send'}
             </Button>
           </FormGroup>
           <FormGroup>
-            <FormText className="text-muted">
-              {outputs.map((output, index) => (
-                <span className="mr-3" key={index}>
-                  {output.name} <i>{output.type}</i>
-                </span>
-              ))}
-            </FormText>
+            {!loading && outputValues && outputValues.agreementID && (
+              <ListGroup>
+                <ListGroupItem>
+                  <strong>agreementID: </strong>
+                  {outputValues.agreementID}
+                </ListGroupItem>
+                <ListGroupItem>
+                  <strong>agreementName: </strong>{' '}
+                  {outputValues.agreementName || '--'}
+                </ListGroupItem>
+                <ListGroupItem>
+                  <strong>innovatorWallet: </strong>{' '}
+                  {outputValues.innovatorWallet || '--'}
+                </ListGroupItem>
+                <ListGroupItem>
+                  <strong>hardcap: </strong> {outputValues.hardcap || '--'}
+                </ListGroupItem>
+                <ListGroupItem>
+                  <strong>createDate: </strong>{' '}
+                  {outputValues.createDate === '0'
+                    ? '--'
+                    : outputValues.createDate}
+                </ListGroupItem>
+                <ListGroupItem>
+                  <strong>endDate: </strong>{' '}
+                  {outputValues.endDate === '0' ? '--' : outputValues.endDate}
+                </ListGroupItem>
+                <ListGroupItem>
+                  <strong>active: </strong> {outputValues.active ? 'YES' : 'NO'}
+                </ListGroupItem>
+              </ListGroup>
+            )}
           </FormGroup>
-          <FormGroup>{outputValues && JSON.stringify(outputValues)}</FormGroup>
         </CardBody>
       </Card>
     </Form>
   )
 }
 
-export default ContractFunction
+export default DcbPools
